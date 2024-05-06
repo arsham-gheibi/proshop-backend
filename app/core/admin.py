@@ -1,8 +1,8 @@
 from django.contrib import admin
 from core import models
 
-admin.register(models.Product)
-admin.register(models.Review)
-admin.register(models.Order)
-admin.register(models.OrderItem)
-admin.register(models.ShippingAddress)
+admin.site.register(models.Product)
+admin.site.register(models.Review)
+admin.site.register(models.Order)
+admin.site.register(models.OrderItem)
+admin.site.register(models.ShippingAddress)
