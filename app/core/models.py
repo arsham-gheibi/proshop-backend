@@ -4,7 +4,16 @@ from django.conf import settings
 
 
 class Product(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    RATING_CHOICES = (
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+    )
+
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255)
@@ -13,7 +22,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
     description = models.TextField()
-    rating = models.DecimalField(max_digits=7, decimal_places=2)
+    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
     num_reviews = models.IntegerField(default=0)
     count_in_stock = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -23,7 +32,8 @@ class Product(models.Model):
 
 
 class Review(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     product = models.ForeignKey(
@@ -38,7 +48,8 @@ class Review(models.Model):
 
 
 class Order(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     payment_method = models.CharField(max_length=255)
@@ -56,7 +67,8 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     product = models.ForeignKey(
         'Product', on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey('Order', on_delete=models.SET_NULL, null=True)
@@ -70,7 +82,8 @@ class OrderItem(models.Model):
 
 
 class ShippingAddress(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     order = models.OneToOneField(
         'Order', on_delete=models.SET_NULL, null=True, blank=True)
     country = models.CharField(max_length=255)
