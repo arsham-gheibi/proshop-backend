@@ -1,6 +1,18 @@
 import uuid
 from django.db import models
 from django.conf import settings
+from os import path
+
+
+def image_file_path(instance, filename):
+    """
+    Generate File Path For New Product Image
+    """
+
+    ext = filename.split('.')[-1]
+    filename = f'{uuid.uuid4()}.{ext}'
+
+    return path.join('images', filename)
 
 
 class Product(models.Model):
@@ -17,7 +29,7 @@ class Product(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255)
-    # image =
+    image = models.ImageField(upload_to=image_file_path)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     brand = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
