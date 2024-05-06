@@ -1,6 +1,7 @@
 from django.urls import path
-from store.views import Home
+from store.views import Products, Show
 
 urlpatterns = (
-    path('', Home.as_view()),
+    path('', Products.as_view()),
+    path('<str:pk>/', Show.as_view()),
 )

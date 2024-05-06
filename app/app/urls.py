@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('drf/', include('rest_framework.urls')),
-    path('', include('store.urls'))
+    path('products/', include('store.urls'))
 ]
 
 if settings.DEBUG:
