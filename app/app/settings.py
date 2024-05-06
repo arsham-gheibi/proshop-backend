@@ -6,6 +6,20 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = []
+ALLOWED_HOSTS.extend(
+    filter(
+        None,
+        os.getenv('ALLOWED_HOSTS', '').split(','),
+    )
+)
+
+CORS_ALLOWED_ORIGINS = []
+CORS_ALLOWED_ORIGINS.extend(
+    filter(
+        None,
+        os.getenv('CORS_ALLOWED_ORIGINS', '').split(','),
+    )
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,9 +76,6 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASS")
     }
 }
-
-# CORS
-CORS_ALLOWED_ORIGINS = ()
 
 LANGUAGE_CODE = 'en-us'
 
