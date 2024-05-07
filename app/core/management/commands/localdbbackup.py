@@ -19,7 +19,6 @@ class Command(BaseCommand):
              '--format=json',
              '--output', backup_file_path,
              '--exclude', 'admin',
-             '--exclude', 'auth',
              '--exclude', 'sessions',
              '--exclude', 'contenttypes']
         )
