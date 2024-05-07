@@ -28,9 +28,9 @@ this is the instruction for the project installation
 
 4. Populate the Database with the fixture
 
-```sh
-docker exec proshop-backend-app-1 python manage.py localdbrestore
-```
+   ```sh
+   docker exec proshop-backend-app-1 python manage.py localdbrestore
+   ```
 
 ### ❗️ NOTE : For Removing Volumes at any time Do the following
 
