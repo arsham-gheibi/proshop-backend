@@ -1,6 +1,6 @@
 ## 🛒 ProShop | Back-End
 
-ProShop a Ecommerce website from Dennis Ivy Cource
+ProShop is a Ecommerce website from Dennis Ivy Cource
 
 this is the instruction for the project installation
 
