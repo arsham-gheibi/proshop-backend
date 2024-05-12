@@ -1,5 +1,30 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
 from core import models
+
+
+class UserSeializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'name', 'is_staff')
+
+    def get_name(self, obj):
+        return f'{obj.first_name} {obj.last_name}'
+
+
+class UserSerializerWithToken(UserSeializer):
+    token = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('id', 'username', 'name', 'is_staff', 'token')
+
+    def get_token(self, obj):
+        token = RefreshToken.for_user(obj)
+        return str(token.access_token)
 
 
 class ProductSerializer(serializers.ModelSerializer):
