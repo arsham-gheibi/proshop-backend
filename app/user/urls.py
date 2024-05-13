@@ -1,6 +1,6 @@
 from django.urls import path
 from user.views import (
-    GetAllUsers, Profile, MyTokenObtainPairView, RegisterUser)
+    GetAllUsers, Profile, AbstractTokenObtainPairView, RegisterUser)
 
 
 urlpatterns = [
@@ -16,7 +16,7 @@ urlpatterns = [
     ),
     path(
         'login/',
-        MyTokenObtainPairView.as_view(),
+        AbstractTokenObtainPairView.as_view(),
         name='token_obtain_pair'
     ),
     path(

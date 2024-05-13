@@ -12,7 +12,7 @@ from core.serializers import UserSeializer, UserSerializerWithToken
 User = get_user_model()
 
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+class AbstractTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)
         serializer = UserSerializerWithToken(self.user).data
@@ -20,8 +20,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return data
 
 
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
+class AbstractTokenObtainPairView(TokenObtainPairView):
+    serializer_class = AbstractTokenObtainPairSerializer
 
 
 class GetAllUsers(APIView):
