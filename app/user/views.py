@@ -40,6 +40,28 @@ class Profile(APIView):
         serializer = UserSeializer(request.user)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
+    def put(self, request):
+        user = request.user
+        data = request.data
+
+        name = data.get('name', '')
+        username = data.get('username', '')
+        password = data.get('password', '')
+
+        if name.strip():
+            user.first_name = name
+
+        if username.strip():
+            user.username = username
+
+        if password.strip():
+            user.password = make_password(password)
+
+        user.save()
+        serializer = UserSerializerWithToken(user)
+
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+
 
 class RegisterUser(APIView):
     def post(self, request):
