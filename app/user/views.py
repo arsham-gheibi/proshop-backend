@@ -33,7 +33,7 @@ class GetAllUsers(APIView):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 
-class ShowUserProfile(APIView):
+class Profile(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):

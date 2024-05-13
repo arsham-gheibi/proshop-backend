@@ -1,6 +1,6 @@
 from django.urls import path
 from user.views import (
-    GetAllUsers, ShowUserProfile, MyTokenObtainPairView, RegisterUser)
+    GetAllUsers, Profile, MyTokenObtainPairView, RegisterUser)
 
 
 urlpatterns = [
@@ -11,7 +11,7 @@ urlpatterns = [
     ),
     path(
         'profile/',
-        ShowUserProfile.as_view(),
+        Profile.as_view(),
         name='users-profile'
     ),
     path(
