@@ -3,7 +3,7 @@ from datetime import timedelta
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
 ALLOWED_HOSTS = []
@@ -98,12 +98,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "HOST": os.getenv("DB_HOST"),
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASS")
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.getenv('DB_HOST'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASS')
     }
 }
 
@@ -120,10 +120,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-STATIC_URL = "/static/static/"
-MEDIA_URL = "/static/media/"
+STATIC_URL = '/static/static/'
+MEDIA_URL = '/static/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -136,15 +136,15 @@ if DEBUG:
         ['127.0.0.1', '10.0.2.2'] + ALLOWED_HOSTS
 
     INSTALLED_APPS.append('debug_toolbar')
-    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
-    STATIC_ROOT = "staticfiles"
-    MEDIA_ROOT = "mediafiles"
+    STATIC_ROOT = 'staticfiles'
+    MEDIA_ROOT = 'mediafiles'
 
 
 elif not DEBUG:
-    STATIC_ROOT = "/vol/web/static"
-    MEDIA_ROOT = "/vol/web/media"
+    STATIC_ROOT = '/vol/web/static'
+    MEDIA_ROOT = '/vol/web/media'
 
     AUTH_PASSWORD_VALIDATORS = [
         {
