@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     # Third-Party apps
     'rest_framework',
     'rest_framework_simplejwt',
+    'graphene_django',
     'corsheaders'
 ]
 
@@ -59,6 +60,17 @@ REST_FRAMEWORK = {
     )
 }
 
+GRAPHENE = {
+    'SCHEMA': 'core.schema.schema',
+    'MIDDLEWARE': (
+        'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    )
+}
+
+AUTHENTICATION_BACKENDS = (
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=30)
