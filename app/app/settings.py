@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'store.apps.StoreConfig',
     # Third-Party apps
-    'rest_framework',
-    'rest_framework_simplejwt',
     'graphene_django',
     'corsheaders'
 ]
@@ -53,12 +51,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
 ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
 
 GRAPHENE = {
     'SCHEMA': 'core.schema.schema',
