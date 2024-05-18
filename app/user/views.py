@@ -49,11 +49,9 @@ class Profile(APIView):
         password = data.get('password', '')
 
         if name.strip():
-            user.first_name = name
-
+            user.name = name
         if username.strip():
             user.username = username
-
         if password.strip():
             user.password = make_password(password)
 
@@ -67,7 +65,7 @@ class RegisterUser(APIView):
     def post(self, request):
         data = request.data
         user = User.objects.create(
-            first_name=data['name'],
+            name=data['name'],
             username=data['username'],
             password=make_password(data['password'])
         )

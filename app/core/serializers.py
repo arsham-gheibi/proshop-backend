@@ -11,9 +11,6 @@ class UserSeializer(serializers.ModelSerializer):
         model = get_user_model()
         fields = ('id', 'username', 'name', 'is_staff')
 
-    def get_name(self, obj):
-        return f'{obj.first_name} {obj.last_name}'
-
 
 class UserSerializerWithToken(UserSeializer):
     token = serializers.SerializerMethodField(read_only=True)
