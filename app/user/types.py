@@ -9,9 +9,3 @@ class UserType(DjangoObjectType):
     class Meta:
         model = User
         fields = ('id', 'username', 'name', 'is_staff')
-
-
-class MutationUserType(DjangoObjectType):
-    class Meta:
-        model = User
-        fields = ('username', 'name', 'password')

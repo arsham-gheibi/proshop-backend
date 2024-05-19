@@ -2,7 +2,7 @@ import graphene
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import login_required
-from .types import MutationUserType
+from .types import UserType
 
 
 User = get_user_model()
@@ -14,7 +14,7 @@ class UserMutationCreate(graphene.Mutation):
         username = graphene.String()
         password = graphene.String()
 
-    user = graphene.Field(MutationUserType)
+    user = graphene.Field(UserType)
 
     @classmethod
     def mutate(
@@ -40,7 +40,7 @@ class UserMutationUpdate(graphene.Mutation):
         username = graphene.String()
         password = graphene.String()
 
-    user = graphene.Field(MutationUserType)
+    user = graphene.Field(UserType)
 
     @classmethod
     @login_required
