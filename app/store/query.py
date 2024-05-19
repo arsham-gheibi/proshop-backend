@@ -16,8 +16,9 @@ class Query():
         id=graphene.UUID(required=True)
     )
 
-    all_orders = graphene.Field(
-        OrderType
+    all_orders = graphene.List(
+        OrderType,
+        is_paid=graphene.Boolean()
     )
 
     order = graphene.Field(
@@ -55,13 +56,19 @@ class Query():
     @login_required
     def resolve_all_orders(
         root,
-        info
+        info,
+        is_paid=None
     ):
         user = info.context.user
         if user.is_staff:
-            return Order.objects.all()
+            qs = Order.objects.all()
         else:
-            return Order.objects.filter(user=user)
+            qs = Order.objects.filter(user=user)
+
+        if is_paid is not None:
+            qs = qs.filter(is_paid=is_paid)
+
+        return qs
 
     @login_required
     def resolve_order(
