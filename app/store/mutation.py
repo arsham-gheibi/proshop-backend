@@ -36,9 +36,8 @@ class OrderMutation(graphene.Mutation):
         address,
         postal_code
     ):
-        user = info.context.user
         order = Order.objects.create(
-            user=user,
+            user=info.context.user,
             payment_method=payment_method,
             tax_price=tax_price,
             shipping_price=shipping_price,

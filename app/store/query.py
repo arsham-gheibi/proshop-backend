@@ -53,5 +53,7 @@ class Query():
         info,
         id
     ):
-        user = info.context.user
-        return Order.objects.get(user=user, id=id)
+        return Order.objects.get(
+            user=info.context.user,
+            id=id
+        )
