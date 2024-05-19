@@ -112,9 +112,9 @@ class Order(models.Model):
     shipping_price = models.DecimalField(max_digits=7, decimal_places=2)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     is_paid = models.BooleanField(default=False)
-    paid_at = models.DateTimeField(auto_now_add=False)
+    paid_at = models.DateTimeField(auto_now_add=False, null=True)
     is_delivered = models.BooleanField(default=False)
-    delivered_at = models.DateTimeField(auto_now_add=False)
+    delivered_at = models.DateTimeField(auto_now_add=False, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

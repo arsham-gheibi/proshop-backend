@@ -1,15 +1,6 @@
 import graphene
-from graphene_django import DjangoObjectType
 from core.models import Product
-
-
-class ProductType(DjangoObjectType):
-    class Meta:
-        model = Product
-        fields = (
-            'id', 'name', 'image', 'price', 'brand', 'category',
-            'description', 'rating', 'num_reviews', 'count_in_stock'
-        )
+from ..types import ProductType
 
 
 class Query():
@@ -49,7 +40,3 @@ class Query():
         id
     ):
         return Product.objects.get(id=id)
-
-
-class Mutation():
-    pass
