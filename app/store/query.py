@@ -1,6 +1,6 @@
 import graphene
 from core.models import Product
-from ..types import ProductType
+from .types import ProductType
 
 
 class Query():

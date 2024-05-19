@@ -1,9 +1,9 @@
 import graphene
 import graphql_jwt
-from user.schema.query import Query as UserQuery
-from user.schema.mutation import Mutation as UserMutation
-from store.schema.query import Query as StoreQuery
-from store.schema.mutation import Mutation as StoreMutation
+from user.query import Query as UserQuery
+from user.mutation import Mutation as UserMutation
+from store.query import Query as StoreQuery
+from store.mutation import Mutation as StoreMutation
 
 
 class Query(
