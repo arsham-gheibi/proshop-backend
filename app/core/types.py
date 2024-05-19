@@ -25,7 +25,7 @@ class OrderType(DjangoObjectType):
     class Meta:
         model = Order
         fields = (
-            'user', 'payment_method', 'tax_price',
+            'id', 'user', 'payment_method', 'tax_price',
             'shipping_price', 'total_price', 'is_paid'
         )
 
