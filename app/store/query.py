@@ -16,6 +16,10 @@ class Query():
         id=graphene.UUID(required=True)
     )
 
+    all_orders = graphene.Field(
+        OrderType
+    )
+
     order = graphene.Field(
         OrderType,
         id=graphene.UUID(required=True)
@@ -24,12 +28,13 @@ class Query():
     def resolve_all_products(
         root,
         info,
-        name='',
+        name=None,
         in_stock=None
     ):
-        qs = Product.objects.filter(
-            name__icontains=name
-        )
+        qs = Product.objects.all()
+
+        if name is not None:
+            qs = qs.filter(name__icontains=name)
 
         if in_stock is not None:
             if in_stock:
@@ -48,12 +53,22 @@ class Query():
         return Product.objects.get(id=id)
 
     @login_required
+    def resolve_all_orders(
+        root,
+        info
+    ):
+        user = info.context.user
+        if user.is_staff:
+            return Order.objects.all()
+        else:
+            return Order.objects.filter(user=user)
+
+    @login_required
     def resolve_order(
         root,
         info,
         id
     ):
-        return Order.objects.get(
-            user=info.context.user,
-            id=id
-        )
+        user = info.context.user
+        order = Order.objects.get(id=id)
+        return order if user.is_staff or order.user == user else None
