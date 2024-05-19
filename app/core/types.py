@@ -1,5 +1,15 @@
+from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from core.models import Product, Order, OrderItem, ShippingAddress
+
+
+User = get_user_model()
+
+
+class UserType(DjangoObjectType):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'name', 'is_staff')
 
 
 class ProductType(DjangoObjectType):

@@ -2,7 +2,7 @@ import graphene
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import login_required
-from .types import UserType
+from core.types import UserType
 
 
 User = get_user_model()

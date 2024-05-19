@@ -1,7 +1,7 @@
 import graphene
 from graphql_jwt.decorators import login_required
 from core.models import Product, Order
-from .types import ProductType, OrderType
+from core.types import ProductType, OrderType
 
 
 class Query():

@@ -1,7 +1,7 @@
 import graphene
 from graphql_jwt.decorators import login_required
 from core.models import Product, Order, OrderItem, ShippingAddress
-from .types import OrderType, OrderItemType, ShippingAddressType
+from core.types import OrderType, OrderItemType, ShippingAddressType
 
 
 class OrderMutation(graphene.Mutation):

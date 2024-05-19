@@ -1,7 +1,7 @@
 import graphene
 from django.contrib.auth import get_user_model
 from graphql_jwt.decorators import staff_member_required, login_required
-from .types import UserType
+from core.types import UserType
 
 
 User = get_user_model()
