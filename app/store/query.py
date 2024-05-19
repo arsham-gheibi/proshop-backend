@@ -1,6 +1,7 @@
 import graphene
-from core.models import Product
-from .types import ProductType
+from graphql_jwt.decorators import login_required
+from core.models import Product, Order
+from .types import ProductType, OrderType
 
 
 class Query():
@@ -12,7 +13,12 @@ class Query():
 
     product = graphene.Field(
         ProductType,
-        id=graphene.UUID()
+        id=graphene.UUID(required=True)
+    )
+
+    order = graphene.Field(
+        OrderType,
+        id=graphene.UUID(required=True)
     )
 
     def resolve_all_products(
@@ -40,3 +46,12 @@ class Query():
         id
     ):
         return Product.objects.get(id=id)
+
+    @login_required
+    def resolve_order(
+        root,
+        info,
+        id
+    ):
+        user = info.context.user
+        return Order.objects.get(user=user, id=id)
