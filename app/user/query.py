@@ -8,14 +8,13 @@ User = get_user_model()
 
 
 class Query():
-    profile = graphene.Field(UserType)
     all_users = graphene.List(UserType)
+    profile = graphene.Field(UserType)
+
+    @staff_member_required
+    def resolve_all_users(root, info):
+        return User.objects.all()
 
     @login_required
     def resolve_profile(root, info):
         return info.context.user
-
-    @staff_member_required
-    def resolve_all_users(root, info):
-        qs = User.objects.all()
-        return qs
