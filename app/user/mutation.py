@@ -9,10 +9,14 @@ User = get_user_model()
 
 
 class UserMutationCreate(graphene.Mutation):
+    """
+    Create a New User
+    """
+
     class Arguments:
-        name = graphene.String()
-        username = graphene.String()
-        password = graphene.String()
+        name = graphene.String(required=True)
+        username = graphene.String(required=True)
+        password = graphene.String(required=True)
 
     user = graphene.Field(UserType)
 
@@ -35,6 +39,10 @@ class UserMutationCreate(graphene.Mutation):
 
 
 class UserMutationUpdate(graphene.Mutation):
+    """
+    Update Current User Detail
+    """
+
     class Arguments:
         name = graphene.String()
         username = graphene.String()

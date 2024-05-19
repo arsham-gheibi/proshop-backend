@@ -5,6 +5,10 @@ from core.types import OrderType, OrderItemType, ShippingAddressType
 
 
 class OrderMutation(graphene.Mutation):
+    """
+    Create a New Order for Logged-in User
+    """
+
     class Arguments:
         order_items = graphene.JSONString(required=True)
         payment_method = graphene.String(required=True)
