@@ -1,4 +1,5 @@
 import graphene
+from django.utils import timezone
 from graphql_jwt.decorators import login_required
 from core.models import Product, Order, OrderItem, ShippingAddress
 from core.types import OrderType, OrderItemType, ShippingAddressType
@@ -65,7 +66,9 @@ class OrderMutation(graphene.Mutation):
                 )
 
             else:
-                return False
+                raise ValueError(
+                    f"there isn't enough quantity for {product.name}"
+                )
 
         shipping_address = ShippingAddress.objects.create(
             order=order,
@@ -85,5 +88,32 @@ class OrderMutation(graphene.Mutation):
         )
 
 
+class OrderUpdateToPaidMutation(graphene.Mutation):
+    """
+    Update Order isPaid Value to True
+    """
+
+    class Arguments:
+        id = graphene.UUID(required=True)
+
+    order = graphene.Field(OrderType)
+
+    @classmethod
+    @login_required
+    def mutate(
+        cls,
+        root,
+        info,
+        id
+    ):
+        order = Order.objects.get(id=id)
+        order.is_paid = True
+        order.paid_at = timezone.now()
+        order.save()
+
+        return OrderUpdateToPaidMutation(order=order)
+
+
 class Mutation():
     create_order = OrderMutation.Field()
+    update_order_to_paid = OrderUpdateToPaidMutation.Field()
