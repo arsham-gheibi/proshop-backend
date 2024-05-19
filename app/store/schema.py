@@ -19,6 +19,11 @@ class Query():
         in_stock=graphene.Boolean()
     )
 
+    product = graphene.Field(
+        ProductType,
+        id=graphene.UUID()
+    )
+
     def resolve_all_products(
         root,
         info,
@@ -37,6 +42,13 @@ class Query():
                 qs = qs.filter(count_in_stock=0)
 
         return qs
+
+    def resolve_product(
+        root,
+        info,
+        id
+    ):
+        return Product.objects.get(id=id)
 
 
 class Mutation():
