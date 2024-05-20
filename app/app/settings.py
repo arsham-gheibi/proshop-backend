@@ -14,6 +14,14 @@ ALLOWED_HOSTS.extend(
     )
 )
 
+CSRF_TRUSTED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS.extend(
+    filter(
+        None,
+        os.getenv('CSRF_TRUSTED_ORIGINS', '').split(','),
+    )
+)
+
 CORS_ALLOWED_ORIGINS = []
 CORS_ALLOWED_ORIGINS.extend(
     filter(
