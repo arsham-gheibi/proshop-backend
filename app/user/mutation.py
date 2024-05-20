@@ -56,9 +56,9 @@ class UserMutationUpdate(graphene.Mutation):
         cls,
         root,
         info,
-        name,
-        username,
-        password
+        name=None,
+        username=None,
+        password=None
     ):
         user = info.context.user
         if name is not None:
