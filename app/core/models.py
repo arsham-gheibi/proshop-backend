@@ -59,14 +59,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Product(models.Model):
-    RATING_CHOICES = (
-        (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 4),
-        (5, 5),
-    )
-
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     user = models.ForeignKey(
@@ -77,7 +69,7 @@ class Product(models.Model):
     brand = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
     description = models.TextField()
-    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
+    rating = models.PositiveIntegerField()
     num_reviews = models.IntegerField(default=0)
     count_in_stock = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
