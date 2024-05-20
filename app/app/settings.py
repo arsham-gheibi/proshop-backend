@@ -22,8 +22,7 @@ CORS_ALLOWED_ORIGINS.extend(
     )
 )
 
-# Temporarily
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_METHODS = ['POST']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -127,6 +126,7 @@ if DEBUG:
     INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + \
         ['127.0.0.1', '10.0.2.2'] + ALLOWED_HOSTS
 
+    CORS_ALLOW_METHODS.append('GET')
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
 
