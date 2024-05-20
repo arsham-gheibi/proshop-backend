@@ -1,5 +1,7 @@
 import graphene
 import graphql_jwt
+from django.middleware.csrf import get_token
+from core.types import CSRFTokenType
 from user.query import Query as UserQuery
 from user.mutation import Mutation as UserMutation
 from store.query import Query as StoreQuery
@@ -11,7 +13,10 @@ class Query(
     UserQuery,
     StoreQuery
 ):
-    pass
+    csrf_token = graphene.Field(CSRFTokenType)
+
+    def resolve_csrf_token(root, info):
+        return CSRFTokenType(csrf_token=get_token(info.context))
 
 
 class Mutation(

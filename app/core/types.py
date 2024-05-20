@@ -1,9 +1,14 @@
+import graphene
 from django.contrib.auth import get_user_model
 from graphene_django import DjangoObjectType
 from core.models import Product, Order, OrderItem, ShippingAddress
 
 
 User = get_user_model()
+
+
+class CSRFTokenType(graphene.ObjectType):
+    csrf_token = graphene.String()
 
 
 class UserType(DjangoObjectType):
