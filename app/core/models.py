@@ -77,6 +77,12 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.name} - ${self.price}'
 
+    def save(self, *args, **kwargs):
+        if self.rating not in (1, 2, 3, 4, 5):
+            raise ValueError('Rating Should be between 1-5')
+
+        return super(User, self).save(*args, **kwargs)
+
 
 class Review(models.Model):
     id = models.UUIDField(
