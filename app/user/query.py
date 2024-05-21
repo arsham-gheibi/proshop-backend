@@ -7,7 +7,7 @@ from core.types import UserType
 User = get_user_model()
 
 
-class Query():
+class Query:
     all_users = graphene.List(UserType)
     profile = graphene.Field(UserType)
 

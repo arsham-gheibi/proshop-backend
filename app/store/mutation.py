@@ -114,6 +114,6 @@ class OrderUpdateToPaidMutation(graphene.Mutation):
         return OrderUpdateToPaidMutation(order=order)
 
 
-class Mutation():
+class Mutation:
     create_order = OrderMutation.Field()
     update_order_to_paid = OrderUpdateToPaidMutation.Field()

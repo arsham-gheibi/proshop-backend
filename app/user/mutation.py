@@ -73,6 +73,6 @@ class UserMutationUpdate(graphene.Mutation):
         return UserMutationUpdate(user=user)
 
 
-class Mutation():
+class Mutation:
     create_user = UserMutationCreate.Field()
     update_user = UserMutationUpdate.Field()

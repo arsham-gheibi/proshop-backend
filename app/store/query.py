@@ -4,7 +4,7 @@ from core.models import Product, Order
 from core.types import ProductType, OrderType
 
 
-class Query():
+class Query:
     all_products = graphene.List(
         ProductType,
         name=graphene.String(),
