@@ -81,7 +81,7 @@ class Product(models.Model):
         if self.rating not in (1, 2, 3, 4, 5):
             raise ValueError('Rating Should be between 1-5')
 
-        return super(User, self).save(*args, **kwargs)
+        return super(Product, self).save(*args, **kwargs)
 
 
 class Review(models.Model):
