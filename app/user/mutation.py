@@ -1,7 +1,7 @@
 import graphene
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
-from graphql_jwt.decorators import login_required
+from graphql_jwt.decorators import staff_member_required, login_required
 from core.types import UserType
 
 
@@ -73,6 +73,29 @@ class UserMutationUpdate(graphene.Mutation):
         return UserMutationUpdate(user=user)
 
 
+class UserMutationDelete(graphene.Mutation):
+    """
+    Delete an Specefice User
+    """
+
+    class Arguments:
+        id = graphene.UUID(required=True)
+
+    user = graphene.Field(UserType)
+
+    @classmethod
+    @staff_member_required
+    def mutate(
+        cls,
+        root,
+        info,
+        id
+    ):
+        User.objects.get(id=id).delete()
+        return True
+
+
 class Mutation:
     create_user = UserMutationCreate.Field()
     update_user = UserMutationUpdate.Field()
+    delete_user = UserMutationDelete.Field()
