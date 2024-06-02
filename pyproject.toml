@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "proshop-backend"
+version = "0.1.0"
+description = ""
+authors = ["roboland <roblandio@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Django = "^4.2"
+graphene-django = "^3.2"
+django-graphql-jwt = "^0.4"
+psycopg = { version = "^3.1", extras = ["binary", "pool"] }
+Pillow = "^10.3"
+django-cors-headers = "^4.3"
+uWSGI = "^2.0.25"
+
+[tool.poetry.group.dev.dependencies]
+django-debug-toolbar = "^4.4"
+flake8 = "^7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

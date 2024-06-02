@@ -1,37 +1,39 @@
-FROM python:3.12.3-alpine3.19
-
+FROM python:3.12.3-alpine3.20
 LABEL maintainer="Roboland.io"
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
-COPY ./requirements.txt /tmp/requirements.txt
-COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 COPY ./app /app
 COPY ./scripts /scripts
-
+COPY ./pyproject.toml /pyproject.toml
+COPY ./poetry.lock /poetry.lock
 WORKDIR /app
 EXPOSE 8000
 
 ARG DEV=false
 
-RUN python -m venv /py && \
-    apk add --update --no-cache postgresql-client jpeg-dev && \
+ENV POETRY_HOME=/poetry
+ENV POETRY_VIRTUALENVS_CREATE=false
+
+RUN apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-deps \
-    build-base linux-headers postgresql-dev musl-dev zlib zlib-dev && \
-    /py/bin/pip install --upgrade pip setuptools wheel && \
-    /py/bin/pip install -r /tmp/requirements.txt && \
+    build-base linux-headers curl postgresql-dev musl-dev zlib zlib-dev && \
+    mkdir -p /poetry && \
+    curl -sSL https://install.python-poetry.org | python - && \
     if [ $DEV = "true" ]; \
-    then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+    then /poetry/bin/poetry install --no-root --no-ansi --no-interaction --no-cache ; \
+    else /poetry/bin/poetry install --no-root --no-ansi --no-interaction --no-cache --only main ; \
     fi && \
     apk del .tmp-deps && \
     adduser --disabled-password --no-create-home app && \
-    mkdir -p /vol/web/media /vol/web/static && \
-    chown -R app:app /vol && \
-    chmod -R 755 /vol && \
+    mkdir /vol/web/media && \
+    mkdir /vol/web/static && \
+    chown -R django-user:django-user /poetry /vol && \
+    chmod -R 755 /poetry /vol && \
     chmod -R +x /scripts
 
-ENV PATH="/scripts:/py/bin:$PATH"
+ENV PATH="/scripts:$PATH"
 
-USER app
+USER django-user
 
-CMD [ "run.sh" ]
+CMD ["run.sh"]
