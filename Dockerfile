@@ -25,7 +25,7 @@ RUN apk add --update --no-cache postgresql-client jpeg-dev && \
     else /poetry/bin/poetry install --no-root --no-ansi --no-interaction --no-cache --only main ; \
     fi && \
     apk del .tmp-deps && \
-    adduser --disabled-password --no-create-home app && \
+    adduser --disabled-password --no-create-home django-user && \
     mkdir -p /vol/web/media && \
     mkdir -p /vol/web/static && \
     chown -R django-user:django-user /poetry /vol && \
