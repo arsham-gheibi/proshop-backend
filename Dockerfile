@@ -1,8 +1,6 @@
 FROM python:3.12.3-alpine3.20
 LABEL maintainer="Roboland.io"
 
-ENV PYTHONUNBUFFERED=1
-
 COPY ./app /app
 COPY ./scripts /scripts
 COPY ./pyproject.toml /pyproject.toml
@@ -12,17 +10,18 @@ EXPOSE 8000
 
 ARG DEV=false
 
-ENV POETRY_HOME=/poetry
-ENV POETRY_VIRTUALENVS_CREATE=false
+ENV PYTHONUNBUFFERED=1 \
+    POETRY_HOME=/poetry \
+    POETRY_VIRTUALENVS_CREATE=false \
+    PATH="/scripts:/poetry/bin:$PATH"
 
 RUN apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-deps \
     build-base linux-headers curl postgresql-dev musl-dev zlib zlib-dev && \
-    mkdir -p /poetry && \
     curl -sSL https://install.python-poetry.org | python - && \
     if [ $DEV = "true" ]; \
-    then /poetry/bin/poetry install --no-root --no-ansi --no-interaction --no-cache ; \
-    else /poetry/bin/poetry install --no-root --no-ansi --no-interaction --no-cache --only main ; \
+    then poetry install --no-root --no-ansi --no-interaction --no-cache ; \
+    else poetry install --no-root --no-ansi --no-interaction --no-cache --only main ; \
     fi && \
     apk del .tmp-deps && \
     adduser --disabled-password --no-create-home django-user && \
@@ -32,7 +31,6 @@ RUN apk add --update --no-cache postgresql-client jpeg-dev && \
     chmod -R 755 /poetry /vol && \
     chmod -R +x /scripts
 
-ENV PATH="/scripts:$PATH"
 
 USER django-user
 
