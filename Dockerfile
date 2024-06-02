@@ -25,12 +25,10 @@ RUN apk add --update --no-cache postgresql-client jpeg-dev && \
     fi && \
     apk del .tmp-deps && \
     adduser --disabled-password --no-create-home django-user && \
-    mkdir -p /vol/web/media && \
-    mkdir -p /vol/web/static && \
+    mkdir -p /vol/web/media /vol/web/static && \
     chown -R django-user:django-user /poetry /vol && \
     chmod -R 755 /poetry /vol && \
     chmod -R +x /scripts
-
 
 USER django-user
 
